@@ -1,14 +1,9 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-function StudentCard({ id, name, program, semester, onRemove }) {
+function StudentCard({ id, name, program, semester, email, phone, onRemove }) {
   const [views, setViews] = useState(0);
   const [showDetails, setShowDetails] = useState(false);
-
-  // Separated function to handle incrementing profile views
-  function handleViewProfile() {
-    setViews((prevViews) => prevViews + 1);
-  }
 
   return (
     <div className="col-md-6 col-lg-3 mb-4">
@@ -22,14 +17,14 @@ function StudentCard({ id, name, program, semester, onRemove }) {
           <div className="d-flex gap-2 mb-2">
             <button
               className="btn btn-primary btn-sm px-2"
-              onClick={handleViewProfile}
+              onClick={() => setViews(views + 1)}
             >
               View Profile
             </button>
 
             <button
               className="btn btn-secondary btn-sm px-2"
-              onClick={handleToggleDetails}
+              onClick={() => setShowDetails(!showDetails)}
             >
               {showDetails ? 'Hide Details' : 'Show Details'}
             </button>
@@ -37,8 +32,8 @@ function StudentCard({ id, name, program, semester, onRemove }) {
 
           {showDetails && (
             <div className="mt-2 small pt-2 border-top">
-              <p className="mb-1"><strong>Email:</strong> student@example.com</p>
-              <p className="mb-0"><strong>Phone:</strong> 0300-1234567</p>
+              <p className="mb-1"><strong>Email:</strong> {email || 'student@example.com'}</p>
+              <p className="mb-0"><strong>Phone:</strong> {phone || '0300-1234567'}</p>
             </div>
           )}
 
